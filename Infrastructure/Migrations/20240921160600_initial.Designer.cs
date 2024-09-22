@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace API.Data.Migrations
+namespace Infrastructure.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20240913202921_create-product-types-and-brands")]
-    partial class createproducttypesandbrands
+    [Migration("20240921160600_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,13 +29,16 @@ namespace API.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ImageUrl")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("TEXT");
+                    b.Property<double>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProductBrandId")
                         .HasColumnType("INTEGER");

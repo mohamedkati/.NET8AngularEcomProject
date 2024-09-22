@@ -1,4 +1,4 @@
-﻿namespace API.Helpers
+﻿namespace API.Wrappers
 {
     public class ApiValidationErrorResponse : ApiResponse
     {
@@ -7,7 +7,7 @@
         }
         public ApiValidationErrorResponse(IEnumerable<string> errors) : base(400)
         {
-            this.Errors = errors;
+            Errors = errors;
         }
         public IEnumerable<string> Errors { get; set; }
     }

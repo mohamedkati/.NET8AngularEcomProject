@@ -1,4 +1,5 @@
 ﻿using API.Helpers;
+using API.Wrappers;
 using Core.Interfaces;
 using Infrastructue.Data;
 using Infrastructure.Repositories;
@@ -21,6 +22,7 @@ namespace API.Extensions
 
             services.AddScoped(typeof(IGenericRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.Configure<ApiBehaviorOptions>(cnf =>
             {
@@ -36,6 +38,15 @@ namespace API.Extensions
                     return new BadRequestObjectResult(response);
                 };
             });
+
+            services.AddCors(cnf =>
+            {
+                cnf.AddPolicy("CorsPolicy", policyOpt =>
+                {
+                    policyOpt.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
+                });
+            });
+
             return services;
         }
     }

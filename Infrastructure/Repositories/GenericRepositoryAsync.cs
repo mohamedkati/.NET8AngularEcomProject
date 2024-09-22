@@ -48,14 +48,19 @@ namespace Infrastructure.Repositories
         {
             return await ApplySpecification(spec).FirstOrDefaultAsync();
         }
-        private IQueryable<T> ApplySpecification(ISpecification<T> spec)
-        {
-            return SpecificationEvaluator<T>.GetQuery(_dbSet.AsQueryable(), spec);
-        }
         public async Task<T> GetProductByIdAsync(int id)
         {
             return await _dbSet
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
+        public async Task<int> CountAsync(ISpecification<T> spec)
+        {
+            return await ApplySpecification(spec).CountAsync();
+        }
+        private IQueryable<T> ApplySpecification(ISpecification<T> spec)
+        {
+            return SpecificationEvaluator<T>.GetQuery(_dbSet.AsQueryable(), spec);
+        }
+      
     }
 }

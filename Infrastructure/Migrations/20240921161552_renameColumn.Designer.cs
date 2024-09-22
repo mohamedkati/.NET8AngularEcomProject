@@ -2,16 +2,19 @@
 using Infrastructue.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace API.Data.Migrations
+namespace Infrastructure.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    partial class StoreContextModelSnapshot : ModelSnapshot
+    [Migration("20240921161552_renameColumn")]
+    partial class renameColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
@@ -25,14 +28,17 @@ namespace API.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("Price")
+                    b.Property<string>("PictureUrl")
+                        .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProductBrandId")
                         .HasColumnType("INTEGER");

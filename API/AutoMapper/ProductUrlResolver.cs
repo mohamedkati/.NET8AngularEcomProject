@@ -2,7 +2,7 @@
 using Core.Entities;
 using Infrastructure.DTOs;
 
-namespace API.Helpers
+namespace API.AutoMapper
 {
     public class ProductUrlResolver : IValueResolver<Product, GetProductDto, string>
     {
@@ -14,7 +14,7 @@ namespace API.Helpers
         }
         public string Resolve(Product source, GetProductDto destination, string destMember, ResolutionContext context)
         {
-            return configuration["ApiUrl"] + source.ImageUrl;
+            return configuration["ApiUrl"] + source.PictureUrl;
         }
     }
 }
